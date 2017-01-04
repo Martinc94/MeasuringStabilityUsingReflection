@@ -19,7 +19,20 @@ public class Metric {
 		float stability;
 		
 		//Calculate Stability
-		stability=0;
+		try {
+            if(getOutDegree() != 0) {
+            	//stability can be calculated
+                stability = ((float) getOutDegree() / ((float) getInDegree() + (float) getOutDegree()));
+            } else {
+            	//not dependant
+                stability = 0;
+            }//end ifElse
+        } catch (ArithmeticException e){
+        	//Prevent NaN being Calculated return 0 instead
+        	//http://stackoverflow.com/questions/10817706/exception-in-thread-main-java-lang-arithmeticexception-by-zero
+        	System.out.println("[ERROR]: Error calculating Stability");
+            stability = 0;
+        }//end tryCatch
 		
 		return stability;
 	}//end getStability
