@@ -66,7 +66,8 @@ public class Processor {
 			
 			//pass class to be Processed
 			processClass(cls);
-			printInOutDegree(cls);
+			//print metric to screen
+			printMetric(cls);
 				
 		} catch (ClassNotFoundException e) {
 			System.out.println("[ERROR]: Cannot find class");
@@ -85,9 +86,6 @@ public class Processor {
 	 * processClass processes the indegree and outDegree of a given class 
 	 */
 	private void processClass(Class cls) {
-		System.out.println("Name: "+cls.getName());
-		System.out.println("---------------------------------------------------------------");
-		
 		//Package pack = cls.getPackage(); //Get the package
 		//boolean iface = cls.isInterface();//Is it an interface?
 		
@@ -164,11 +162,13 @@ public class Processor {
 	/**
 	 * Print In/OutDegree for given class
 	 */
-	private void printInOutDegree(Class cls) {	
-		//Print In/OutDegree 
+	private void printMetric(Class cls) {
+		System.out.println("Name: "+cls.getName());
+		System.out.println("---------------------------------------------------------------");
 		Metric m=graph.get(cls.getName());
 		System.out.println("OutDegree: "+m.getOutDegree());
 		System.out.println("InDegree: "+m.getInDegree());
+		System.out.println("Stability: "+m.getStability());
 		System.out.println("---------------------------------------------------------------");
 	}//end printInOutDegree
 	
