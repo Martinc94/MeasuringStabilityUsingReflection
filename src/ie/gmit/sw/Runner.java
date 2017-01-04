@@ -6,13 +6,16 @@ package ie.gmit.sw;
  */
 
 public class Runner {
+	//private static String jarLocation="C:\\Users\\MartinColeman\\Desktop\\Jars\\CustomerJar.jar";
+	//private static String jarLocation="C:\\Users\\MartinColeman\\Desktop\\Jars\\junit.jar";
+	private static String jarLocation="CustomerJar.jar";
 
 	public static void main(String[] args) {
-		//Jar reader parses Jar
-		JarReader jr = new JarReader("CustomerJar.jar");
+		//Jar reader parses Jar to map
+		JarReader jr = new JarReader(jarLocation);
 		
-		//Processer process Metric for each Class
-		Processor p = new Processor(jr.getMap());
+		//Processer process Metric for each Class in a given map
+		Processor p = new Processor(jr.getMap(),jarLocation);
 	}//end main
 
 }//end Runner
