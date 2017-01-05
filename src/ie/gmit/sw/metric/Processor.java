@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.metric;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -208,6 +208,13 @@ public class Processor {
 	public Map<String, Metric> getProcessedGraph() {
 		return this.processedGraph;
 	}//end getProcessedGraph
+	
+	/**
+	 * Returns the graph
+	 */
+	public Map<String, Metric> getGraph() {
+		return this.graph;
+	}//end getGraph
 	
 	/**
 	 * printClass prints class to Console 
