@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.metric;
 
 import java.io.File;
 import java.io.FileInputStream;

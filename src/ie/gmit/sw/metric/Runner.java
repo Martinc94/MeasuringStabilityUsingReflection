@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.metric;
 
 /**
  * Runner is the class used for running the application

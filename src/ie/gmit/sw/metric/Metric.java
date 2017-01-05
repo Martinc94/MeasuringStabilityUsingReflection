@@ -1,4 +1,4 @@
-package ie.gmit.sw;
+package ie.gmit.sw.metric;
 
 /**
  * Metric class is for measuring the stability of a class from its inDegree and outDegree
