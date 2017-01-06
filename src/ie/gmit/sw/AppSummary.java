@@ -9,6 +9,9 @@ import javax.swing.table.*;
 
 import ie.gmit.sw.metric.Metric;
 
+/**
+ * AppSummary manages Jtable and other GUI dependancies for displaying results
+ */
 public class AppSummary extends JDialog{
 	private static final long serialVersionUID = 777L;	
 	private TypeSummaryTableModel tm = null;
@@ -19,6 +22,9 @@ public class AppSummary extends JDialog{
 	private JPanel buttonPanel = new JPanel();
 	private Container c;
 	
+	/**
+	 * Constructor For Class
+	 */
 	public AppSummary(JFrame parent, boolean modal,Map<String,Metric>graph){
         super(parent, modal);
         super.setTitle("Summary");
@@ -36,17 +42,19 @@ public class AppSummary extends JDialog{
         c.add(buttonPanel);
 	}
 	
-	
+	/**
+	 * Create Table from given Map
+	 * 
+	 * @param graph
+	 * Map Of String keys paired to Metric Values
+	 */
 	private void createTable(Map<String,Metric>graph){
 		tm = new TypeSummaryTableModel();
 		tm.setData(graph);
 		table = new JTable(tm);
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		table.setSelectionBackground(Color.YELLOW);
-
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
-		
 		
 		TableColumn column = null;
 		for (int i = 0; i < table.getColumnCount(); i++){
@@ -69,6 +77,9 @@ public class AppSummary extends JDialog{
 		tablePanel.add(tableScroller, FlowLayout.LEFT);
 	}
 	
+	/**
+	 * Configures ButtonPanel
+	 */
 	private void configureButtonPanel(){
     	buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 

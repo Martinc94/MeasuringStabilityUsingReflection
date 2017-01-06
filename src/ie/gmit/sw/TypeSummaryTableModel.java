@@ -7,6 +7,9 @@ import java.util.Map.Entry;
 import javax.swing.table.*;
 import ie.gmit.sw.metric.Metric;
 
+/**
+ * TypeSummaryTableModel formats how data is displayed in Jtable 
+ */
 public class TypeSummaryTableModel extends AbstractTableModel{
 	private static final long serialVersionUID = 777L;
 	private String[] cols = {"Class Name", "Out Degree", "In Degree", "Stability"};
@@ -19,9 +22,28 @@ public class TypeSummaryTableModel extends AbstractTableModel{
 		{"Stuff 6", "Other Stuff 6", "Even More Stuff 6", "Even More Stuff"},
 		{"Stuff 7", "Other Stuff 7", "Even More Stuff 7", "Even More Stuff"}
 	};
-	
-	public void setData(Map <String,Metric>graph){
 
+	public int getColumnCount() {
+        return cols.length;
+    }
+	
+    public int getRowCount() {
+        return data.length;
+	}
+
+    public String getColumnName(int col) {
+    	return cols[col];
+    }
+
+    public Object getValueAt(int row, int col) {
+        return data[row][col];
+	}
+   
+    public Class<?> getColumnClass(int c) {
+        return getValueAt(0, c).getClass();
+	}
+    
+    public void setData(Map <String,Metric>graph){
 		Object[][] mapData = new Object[graph.size()][4];
 		Iterator<?> classIterator = graph.entrySet().iterator();
 		Entry<String, Metric> thisEntry;
@@ -45,26 +67,5 @@ public class TypeSummaryTableModel extends AbstractTableModel{
 		
 		//add data to table
 		data=mapData;
-
-	} // setData
-	
-	public int getColumnCount() {
-        return cols.length;
-    }
-	
-    public int getRowCount() {
-        return data.length;
-	}
-
-    public String getColumnName(int col) {
-    	return cols[col];
-    }
-
-    public Object getValueAt(int row, int col) {
-        return data[row][col];
-	}
-   
-    public Class<?> getColumnClass(int c) {
-        return getValueAt(0, c).getClass();
-	}
+	} //end setData
 }

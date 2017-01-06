@@ -12,12 +12,18 @@ import java.awt.event.*;
 import java.io.File;
 import java.util.Map;
 
+/**
+ * AppWindow manages Swing GUI
+ */
 public class AppWindow {
 	private JFrame frame;
 	private String JarLocation;
 	private Map<String,Metric>graph;
 	private JButton btnDialog;
 	
+	/**
+	 * Constructor for class
+	 */
 	public AppWindow(){
 		//Create a window for the application
 		frame = new JFrame();
@@ -157,6 +163,9 @@ public class AppWindow {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Main Launches AppWindow creating GUI
+	 */
 	public static void main(String[] args) {
 		new AppWindow();
 	}
