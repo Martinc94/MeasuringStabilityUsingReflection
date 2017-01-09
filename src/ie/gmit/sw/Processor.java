@@ -20,9 +20,17 @@ import java.util.Map.Entry;
  */
 public class Processor {
 	private Map<String,Metric> graph;
-	private Map<String,Metric> processedGraph;
 	private String jarLocation;
 
+	/**
+	 * Constructor for class, Initialises Variables and passes graph to Iterator
+	 * 
+	 * @param graph
+	 * Map Of String keys paired to Metric Values
+	 * 
+	 * @param jarLoc
+	 * String representing a Jar Location
+	 */
 	public Processor(Map<String, Metric> graph,String jarLoc) {
 		this.graph = graph;
 		this.jarLocation = jarLoc;
@@ -31,6 +39,9 @@ public class Processor {
 
 	/**
 	 * Iterate over map and process each class
+	 * 
+	 * @param graph
+	 * Map Of String keys paired to Metric Values
 	 */
 	private void iterateOver(Map graph) {
 		//Iterate over Map
@@ -49,6 +60,9 @@ public class Processor {
 	
 	/**
 	 * processGraph Loads classes from Jar and passes requested class to be Processed
+	 * 
+	 * @param clsName
+	 * String representing a class
 	 */
 	private void processGraph(String clsName) {
 		try {
@@ -67,7 +81,7 @@ public class Processor {
 			//pass class to be Processed
 			processClass(cls);
 			//print metric to screen
-			printMetric(cls);
+			//printMetric(cls);
 				
 		} catch (ClassNotFoundException e) {
 			System.out.println("[ERROR]: Cannot find class");
@@ -84,6 +98,9 @@ public class Processor {
 	
 	/**
 	 * processClass processes the indegree and outDegree of a given class 
+	 * 
+	 * @param cls
+	 * Class from Jar to be processed
 	 */
 	private void processClass(Class cls) {
 		//Package pack = cls.getPackage(); //Get the package
@@ -161,6 +178,9 @@ public class Processor {
 	
 	/**
 	 * Print In/OutDegree for given class
+	 * 
+	 * @param cls
+	 * Class from Jar to be printed to console
 	 */
 	private void printMetric(Class cls) {
 		System.out.println("Name: "+cls.getName());
@@ -174,6 +194,9 @@ public class Processor {
 	
 	/**
 	 * Increase OutDegree for given class
+	 * 
+	 * @param clsName
+	 * String representing a class
 	 */
 	private void incOutDegree(String clsName){
 		//find metric on map with key and increment outDegree
@@ -189,6 +212,9 @@ public class Processor {
 	
 	/**
 	 * Increase InDegree for given class
+	 * 
+	 * @param clsName
+	 * String representing a class
 	 */
 	private void incInDegree(String clsName){
 		//find metric on map with key and increment inDegree
@@ -203,14 +229,20 @@ public class Processor {
 	}//end incInDegree
 
 	/**
-	 * Returns the processedGraph
+	 * Returns the graph
+	 * 
+	 * @return
+	 * Returns a Map of <Key:String , Value:Metric>
 	 */
-	public Map<String, Metric> getProcessedGraph() {
-		return this.processedGraph;
-	}//end getProcessedGraph
+	public Map<String, Metric> getGraph() {
+		return this.graph;
+	}//end getGraph
 	
 	/**
 	 * printClass prints class to Console 
+	 * 
+	 * @param clsName
+	 * String representing a class
 	 */
 	private void printClass(String clsName) {
 		

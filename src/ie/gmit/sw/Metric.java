@@ -9,11 +9,17 @@ public class Metric {
 	private int inDegree;
 	private int outDegree;
 	
+	/**
+	 * Default Constructor for Class
+	 */
 	public Metric(){
 	}//default Constructor
 	
 	/**
 	 * Calculates and returns Stability of a class
+	 * 
+	 * @return
+	 * Returns the Stability of the class this metric represents
 	 */
 	public float getStability(){
 		float stability;
@@ -39,6 +45,9 @@ public class Metric {
 
 	/**
 	 * Returns the inDegree of a class
+	 * 
+	 * @return
+	 * Returns the inDegree as an int
 	 */
 	public int getInDegree() {
 		return inDegree;
@@ -46,6 +55,9 @@ public class Metric {
 
 	/**
 	 * Returns the outDegree of a class
+	 * 
+	 * @return
+	 * Returns the outDegree as an int
 	 */
 	public int getOutDegree() {
 		return outDegree;

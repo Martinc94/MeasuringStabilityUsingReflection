@@ -18,12 +18,21 @@ public class JarReader {
 	private JarEntry next;
 	private Map<String,Metric> graph = new HashMap<String,Metric>();
 	
+	/**
+	 * Constructor for class, passes Jar Location to readJar Method
+	 * 
+	 * @param jarName
+	 * String representing a Jar Location
+	 */
 	public JarReader(String jarName){
 		readJar(jarName);
 	}//end JarReader Constructor
 	
 	/**
 	 * Reads all the classes of a givenJar and adds to Map
+	 * 
+	 * @param jarName
+	 * String representing a Jar Location
 	 */
 	public void readJar(String jarName){
 		try {
@@ -54,6 +63,9 @@ public class JarReader {
 
 	/**
 	 * Returns map of classes and their Metrics
+	 * 
+	 * @return
+	 * Returns a Map of <Key:String , Value:Metric>
 	 */
 	public Map<String, Metric> getMap() {
 		return this.graph;
