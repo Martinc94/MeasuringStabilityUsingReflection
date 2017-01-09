@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.table.*;
-import ie.gmit.sw.metric.Metric;
 
 /**
  * TypeSummaryTableModel formats how data is displayed in Jtable 

@@ -1,7 +1,7 @@
 package ie.gmit.sw;
 
 /**
- * Runner Launches the GUI Window
+ * testRunner Launches the GUI Window
  */
 public class Runner {
 	public static void main(String[] args) {

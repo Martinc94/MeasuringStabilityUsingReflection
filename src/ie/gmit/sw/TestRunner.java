@@ -1,11 +1,11 @@
-package ie.gmit.sw.metric;
+package ie.gmit.sw;
 
 /**
- * Runner is the class used for testing the JarReader and Processing Stability
+ * TestRunner is the class used for testing the JarReader and Processing Stability
  * @author  Martin Coleman
  */
 
-public class Runner {
+public class TestRunner {
 	//private static String jarLocation="C:\\Users\\User\\Desktop\\jar.jar";//Enter Url Here
 	private static String jarLocation="CustomerJar.jar";
 
@@ -17,4 +17,4 @@ public class Runner {
 		Processor p = new Processor(jr.getMap(),jarLocation);
 	}//end main
 
-}//end Runner
+}//end TestRunner

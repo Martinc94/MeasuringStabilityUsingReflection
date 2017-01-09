@@ -3,10 +3,6 @@ package ie.gmit.sw;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
-import ie.gmit.sw.metric.JarReader;
-import ie.gmit.sw.metric.Metric;
-import ie.gmit.sw.metric.Processor;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;

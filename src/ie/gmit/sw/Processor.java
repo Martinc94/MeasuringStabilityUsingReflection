@@ -1,4 +1,4 @@
-package ie.gmit.sw.metric;
+package ie.gmit.sw;
 
 import java.io.File;
 import java.lang.reflect.Constructor;

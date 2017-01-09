@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.swing.*;
 import javax.swing.table.*;
 
-import ie.gmit.sw.metric.Metric;
-
 /**
  * AppSummary manages Jtable and other GUI dependancies for displaying results
  */
