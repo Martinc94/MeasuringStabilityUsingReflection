@@ -4,20 +4,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import com.db4o.*;
 import com.db4o.config.*;
-import com.db4o.query.*;
 import com.db4o.ta.*;
 import xtea_db4o.XTEA;
 import xtea_db4o.XTeaEncryptionStorage;
 
-
+/**
+ *SavedResults Manages DB4o. It Loads and Saves Lists of Maps
+ */
 public class SavedResults {
 	private ObjectContainer db = null;
-	//private List<Map> resultList = new ArrayList<Map>();
 	private List<Map> listOfMaps = new ArrayList<Map>();
 	
+	/**
+	 *Constructor for class
+	 */
 	public SavedResults(){
 		//db40 Configuration
 		EmbeddedConfiguration config = Db4oEmbedded.newConfiguration();
@@ -30,37 +32,33 @@ public class SavedResults {
 	
 		//Open a local database. Use Db4o.openServer(config, server, port) for full client / server
 		db = Db4oEmbedded.openFile(config, "stability.data");
-		
-		/*//test Data
-		Metric m = new Metric();
-		
-		Map<String,	Metric> map = new HashMap<String, Metric>();
-		
-		map.put("ie.gmit.sw", m);
-		
-		addGraph(map);*/
-		
-		
 
 		//load stored jars list from DB
 		load();	
 
 	}//end SavedResults
 
+	/**
+	 * Loads a list of graphs from Db4o
+	 */
 	private void load(){
 		//try to load from Database
 		try {
-			//List<Map> res = (List<Map>)db.query(Map.class);
 			List<Map> maps = new ArrayList<Map>(db.query(Map.class));
 			
 			this.listOfMaps=maps;
 		} catch (Exception e) {
-			//handle error here
-			System.out.println("Error Load");
+			System.out.println("Error Loading from DB");
 			e.printStackTrace();
 		}
 	}//end load
 	
+	/**
+	 * Adds a new graph to list 
+	 * 
+	 * @param graph
+	 * Map of String,Metric
+	 */
 	public void addGraph(Map<String,Metric>graph){
 		//try add to list 
 		try {
@@ -73,23 +71,55 @@ public class SavedResults {
 		}
 	}//end addGraph
 	
-	public void deleteGraph(){
-		//index on List?
+	/**
+	 * Delete a graph from list 
+	 */
+	public void deleteGraph(int index){
+		if(index<listOfMaps.size()){
+			 listOfMaps.remove(index);
+		}
 	}//end deleteGraph
 	
+	/**
+	 * Save List of maps to Db4o
+	 */
 	private void saveToDB(){	
 		try {
 			db.store(this.listOfMaps);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			//db.rollback(); //Rolls back the transaction
-			System.out.println("Error Save");
+			System.out.println("Error Saving");
 			e.printStackTrace();
 		}
 	}//end saveToDB
 	
+	/**
+	 * Returns a list of maps
+	 * 
+	 * @return
+	 * List of maps
+	 */
 	public List getResults(){
-		System.out.println(listOfMaps.toString());
 		return listOfMaps;
 	}//end getResults
 	
-}
+	/**
+	 * Returns a Map at a given index from list of maps
+	 * 
+	 * @return
+	 * Returns a map
+	 */
+	public Map getResultsAtIndex(int index){
+		
+		try {
+			if(index<listOfMaps.size()){
+				return listOfMaps.get(index);
+			}
+			else{
+				return new HashMap<String,Metric>();
+			}
+		} catch (Exception e) {
+			return new HashMap<String,Metric>();
+		}
+	}//end getResultsAtIndex
+}//end SavedResults
