@@ -3,9 +3,13 @@ package ie.gmit.sw;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
+import com.db4o.ext.DatabaseFileLockedException;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -93,7 +97,6 @@ public class AppWindow {
 				} catch (Exception e) {
 					//Error
 				}
-  
 			}//end actionPerformed
         });
 		
@@ -109,18 +112,7 @@ public class AppWindow {
         mid.setPreferredSize(new java.awt.Dimension(500, 300));
         mid.setMaximumSize(new java.awt.Dimension(500, 300));
         mid.setMinimumSize(new java.awt.Dimension(500, 300));
-        
-        /*CustomControl cc = new CustomControl(new java.awt.Dimension(500, 300));
-        cc.setBackground(Color.WHITE);
-        cc.setPreferredSize(new java.awt.Dimension(300, 300));
-        cc.setMaximumSize(new java.awt.Dimension(300, 300));
-        cc.setMinimumSize(new java.awt.Dimension(300, 300));
-        mid.add(cc);
-		frame.getContentPane().add(mid);*/
-        
-        
-        
-		
+  
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         bottom.setPreferredSize(new java.awt.Dimension(500, 50));
         bottom.setMaximumSize(new java.awt.Dimension(500, 50));
@@ -133,13 +125,19 @@ public class AppWindow {
             	//check if graph is available
             	try {
 					if(graph!=null){
-						AppSummary as =  new AppSummary(frame, true, graph);
+						AppSummary as =  new AppSummary(frame, true, graph,true);
 		            	as.show();
 					}
 					else{
 						JOptionPane.showMessageDialog(null, "Error please select Jar or try a different Jar");
 					}
-				} catch (Exception e) {
+				}catch (DatabaseFileLockedException e) {
+					//JOptionPane.showMessageDialog(null, "Database is locked by another application");
+					//e.printStackTrace();
+					//db locked first time so try again
+					AppSummary as =  new AppSummary(frame, true, graph,true);
+	            	as.show();
+				}catch (Exception e) {
 					JOptionPane.showMessageDialog(null, "Error");
 				}
             	
@@ -152,7 +150,30 @@ public class AppWindow {
             	System.exit(0);
 			}
         });
+        
+        JButton btnRes = new JButton("View Results"); //Create Quit button
+        btnRes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	//List<Map> maps = new ArrayList<Map>();
+            	
+            	try {
+            		SavedResults results=new SavedResults();
+            		ResultsWindow rw =  new ResultsWindow(frame, true,results.getResults());
+                	rw.show();
+
+				} catch (DatabaseFileLockedException e) {
+					JOptionPane.showMessageDialog(null, "Database is locked by another application(Try Again)");
+					e.printStackTrace();
+				}
+            	catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Error");
+					e.printStackTrace();
+				}
+			}
+        });
+        
         bottom.add(btnDialog);
+        bottom.add(btnRes);
         bottom.add(btnQuit);
 
         frame.getContentPane().add(bottom);       
