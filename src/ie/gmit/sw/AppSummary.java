@@ -2,7 +2,10 @@ package ie.gmit.sw;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -16,9 +19,12 @@ public class AppSummary extends JDialog{
 	private JTable table = null;
 	private JScrollPane tableScroller = null;
 	private JButton btnClose = null;
+	private JButton btnSave = null;
 	private JPanel tablePanel = new JPanel();
 	private JPanel buttonPanel = new JPanel();
 	private Container c;
+	private SavedResults results;
+	private Map<String, Metric> currentGraph;
 	
 	/**
 	 * Constructor For Class
@@ -38,6 +44,8 @@ public class AppSummary extends JDialog{
         
         c.add(tablePanel);
         c.add(buttonPanel);
+        
+        results = new SavedResults();
 	}
 	
 	/**
@@ -47,6 +55,7 @@ public class AppSummary extends JDialog{
 	 * Map Of String keys paired to Metric Values
 	 */
 	private void createTable(Map<String,Metric>graph){
+		this.currentGraph=graph;
 		tm = new TypeSummaryTableModel();
 		tm.setData(graph);
 		table = new JTable(tm);
@@ -80,6 +89,25 @@ public class AppSummary extends JDialog{
 	 */
 	private void configureButtonPanel(){
     	buttonPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+    	
+    	btnSave = new JButton("Save");		
+    	btnSave.setToolTipText("Save results");
+    	btnSave.setPreferredSize(new java.awt.Dimension(100, 40));
+    	btnSave.setMaximumSize(new java.awt.Dimension(100, 40));
+    	btnSave.setMargin(new java.awt.Insets(2, 2, 2, 2));
+    	btnSave.setMinimumSize(new java.awt.Dimension(100, 40));
+    	//btnSave.setIcon(new ImageIcon("images/close.gif"));
+    	btnSave.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					saveResults();
+					btnSave.setVisible(false);
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null, "Error saving results");
+				}
+				
+			}
+		});
 
 		//Configure the Cancel button
 		btnClose = new JButton("Close");		
@@ -95,6 +123,12 @@ public class AppSummary extends JDialog{
 			}
 		});
 
+		buttonPanel.add(btnSave);
 		buttonPanel.add(btnClose);
 	}
+	
+	private void saveResults(){
+		results.addGraph(currentGraph);
+	}
+
 }
